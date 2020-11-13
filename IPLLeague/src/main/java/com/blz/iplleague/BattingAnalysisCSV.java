@@ -46,14 +46,6 @@ public class BattingAnalysisCSV {
 	@CsvBindByName(column = "6s")
 	public int sixes;
 	
-	public int getFours() {
-		return fours;
-	}
-	
-	public int getSixes() {
-		return sixes;
-	}
-	
 	@Override
 	public String toString() {
 		return "BattingAnalysisCSV [ pos= "+pos+", Player= "+player+", Mat= "+mat+", Inns= "+inns+", No= "+no

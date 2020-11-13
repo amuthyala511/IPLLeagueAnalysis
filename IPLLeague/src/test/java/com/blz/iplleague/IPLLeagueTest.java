@@ -35,4 +35,14 @@ public class IPLLeagueTest {
         	e.printStackTrace();
         }
 	}
+	
+	public void givenBattingData_ShouldSortStrikingRate_AndReturnResult() {
+		try {
+			String sortedIPLBattingData = iplLeagueAnalysis.getTopStrikingRate(BATTING_FILE_PATH);
+			BattingAnalysisCSV[] battingData = new Gson().fromJson(sortedIPLBattingData, BattingAnalysisCSV[].class);
+            Assert.assertEquals(333.33, battingData[battingData.length - 1].sr, DELTA);
+        } catch (CensusAnalyserException e) {
+        	e.printStackTrace();
+        }
+	}
 }
