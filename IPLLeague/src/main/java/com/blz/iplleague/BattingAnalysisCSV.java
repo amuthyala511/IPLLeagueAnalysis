@@ -42,15 +42,24 @@ public class BattingAnalysisCSV {
 
 	@CsvBindByName(column = "4s")
 	public int fours;
-	
+
 	@CsvBindByName(column = "6s")
 	public int sixes;
-	
+
+	public int getFours() {
+		return fours;
+	}
+
+	public int getSixes() {
+		return sixes;
+	}
+
 	@Override
 	public String toString() {
-		return "BattingAnalysisCSV [ pos= "+pos+", Player= "+player+", Mat= "+mat+", Inns= "+inns+", No= "+no
-									+", Runs= "+runs+", Hs= "+hs+", Avg= "+average+", Bf= "+bf+", Sr= "+sr
-									+", Century= "+century+", Half-Century= "+halfcentury+", Fours= "+fours+", Sixes+ "+sixes+" ]";
+		return "BattingAnalysisCSV [ pos= " + pos + ", Player= " + player + ", Mat= " + mat + ", Inns= " + inns
+				+ ", No= " + no + ", Runs= " + runs + ", Hs= " + hs + ", Avg= " + average + ", Bf= " + bf + ", Sr= "
+				+ sr + ", Century= " + century + ", Half-Century= " + halfcentury + ", Fours= " + fours + ", Sixes+ "
+				+ sixes + " ]";
 	}
-	
+
 }
