@@ -63,20 +63,30 @@ public class IPLLeague {
 		Collections.reverse(max6s);
 		return max6s;
 	}
-	
-	public List<BattingAnalysisCSV> getCricketerWithBestStrikingRate4sAnd6s(String csvFilePath) throws IOException, CensusAnalyserException {
+
+	public List<BattingAnalysisCSV> getCricketerWithBestStrikingRate4sAnd6s(String csvFilePath)
+			throws IOException, CensusAnalyserException {
 		loadCSVData(csvFilePath);
-		Integer cricketerWithMax4s6s = battingList.stream()
-							.map(player -> (player.getFours() + player.getSixes()))
-								.max(Double::compare).get();
+		Integer cricketerWithMax4s6s = battingList.stream().map(player -> (player.getFours() + player.getSixes()))
+				.max(Double::compare).get();
 		List<BattingAnalysisCSV> cricketerWithBestStrikingRate4s6s = battingList.stream()
-							.filter(player -> player.getFours() + player.getSixes() == cricketerWithMax4s6s)
-								.collect(Collectors.toList());
-		double cricketerWithBestStrikeRate = cricketerWithBestStrikingRate4s6s.stream()
-							.map(BattingAnalysisCSV::getSR)
-								.max(Double::compare).get();
+				.filter(player -> player.getFours() + player.getSixes() == cricketerWithMax4s6s)
+				.collect(Collectors.toList());
+		double cricketerWithBestStrikeRate = cricketerWithBestStrikingRate4s6s.stream().map(BattingAnalysisCSV::getSR)
+				.max(Double::compare).get();
 		return cricketerWithBestStrikingRate4s6s.stream()
-				.filter(player -> player.getSR() == cricketerWithBestStrikeRate)
+				.filter(player -> player.getSR() == cricketerWithBestStrikeRate).collect(Collectors.toList());
+	}
+
+	public List<BattingAnalysisCSV> getCricketerWithBestStrikingRatesWithBestAverage(String csvFilePath)
+			throws IOException, CensusAnalyserException {
+		loadCSVData(csvFilePath);
+		double bestAverages = battingList.stream().map(BattingAnalysisCSV::getAvg).max(Double::compare).get();
+		List<BattingAnalysisCSV> cricketerWithBestAverage = battingList.stream()
+				.filter(player -> player.getAvg() == bestAverages).collect(Collectors.toList());
+		double cricketerWithBestStrikeRate = cricketerWithBestAverage.stream().map(BattingAnalysisCSV::getSR)
+				.max(Double::compare).get();
+		return cricketerWithBestAverage.stream().filter(player -> player.getSR() == cricketerWithBestStrikeRate)
 				.collect(Collectors.toList());
 	}
 

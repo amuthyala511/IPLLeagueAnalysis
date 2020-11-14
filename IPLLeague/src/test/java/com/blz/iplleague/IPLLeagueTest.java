@@ -63,9 +63,18 @@ public class IPLLeagueTest {
 		List<BattingAnalysisCSV> list = new IPLLeague().getCricketerWithMax6s(BATTING_FILE_PATH);
 		Assert.assertEquals("Andre Russell", new IPLLeague().getCricketerWithMax6s(BATTING_FILE_PATH).get(0).player);
 	}
-	
+
 	@Test
-	public void givenBattingData_ShouldSortCricketers_WithBestStrikingRate_With4sAnd6s_AndReturnResult() throws IOException, CensusAnalyserException {
-		Assert.assertEquals("Andre Russell", new IPLLeague().getCricketerWithBestStrikingRate4sAnd6s(BATTING_FILE_PATH).get(0).player);
+	public void givenBattingData_ShouldSortCricketers_WithBestStrikingRate_With4sAnd6s_AndReturnResult()
+			throws IOException, CensusAnalyserException {
+		Assert.assertEquals("Andre Russell",
+				new IPLLeague().getCricketerWithBestStrikingRate4sAnd6s(BATTING_FILE_PATH).get(0).player);
+	}
+
+	@Test
+	public void givenBattingData_ShouldSortCricketers_WithBestAverages_WithBestStrikingRates_AndRetuenResult()
+			throws IOException, CensusAnalyserException {
+		Assert.assertEquals("MS Dhoni",
+				new IPLLeague().getCricketerWithBestStrikingRatesWithBestAverage(BATTING_FILE_PATH).get(0).player);
 	}
 }
