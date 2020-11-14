@@ -60,4 +60,9 @@ public class IPLLeagueTest {
         	e.printStackTrace();
         }
 	}
+	
+	@Test
+	public void givenBowlingData_ShouldSortBowlers_WithBestStrikingRate_With4wAnd5w_AndReturnResult() throws IOException, CensusAnalyserException {
+		Assert.assertEquals("Lasith Malinga", new IPLLeague().getBowlerWithBestStrikingRateWith4wAnd5w(BOWLING_FILE_PATH).get(0).player);
+	}
 }

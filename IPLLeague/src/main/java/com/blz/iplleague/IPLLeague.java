@@ -34,10 +34,10 @@ public class IPLLeague {
 		String sortedCensusJson = new Gson().toJson(this.bowlingList);
 		return sortedCensusJson;
 	}
-	
+
 	public String getBowlersTopStrikingRate(String csvFilePath) throws CensusAnalyserException {
 		loadCSVData(csvFilePath);
-		if(bowlingList == null || bowlingList.size() == 0) {
+		if (bowlingList == null || bowlingList.size() == 0) {
 			throw new CensusAnalyserException("NO_CENSUS_DATA", CensusAnalyserException.ExceptionType.NO_SUCH_FILE);
 		}
 		Comparator<BowlingAnalysisCSV> censusComparator = Comparator.comparing(census -> census.sr);
@@ -45,16 +45,29 @@ public class IPLLeague {
 		String sortedCensusJson = new Gson().toJson(this.bowlingList);
 		return sortedCensusJson;
 	}
-	
+
 	public String getBowlerWithBestEconomyRate(String csvFilePath) throws CensusAnalyserException {
 		loadCSVData(csvFilePath);
-		if(bowlingList == null || bowlingList.size() == 0) {
+		if (bowlingList == null || bowlingList.size() == 0) {
 			throw new CensusAnalyserException("NO_CENSUS_DATA", CensusAnalyserException.ExceptionType.NO_SUCH_FILE);
 		}
 		Comparator<BowlingAnalysisCSV> censusComparator = Comparator.comparing(census -> census.economy);
 		this.sort(censusComparator);
 		String sortedCensusJson = new Gson().toJson(this.bowlingList);
 		return sortedCensusJson;
+	}
+
+	public List<BowlingAnalysisCSV> getBowlerWithBestStrikingRateWith4wAnd5w(String csvFilePath)
+			throws IOException, CensusAnalyserException {
+		loadCSVData(csvFilePath);
+		Integer bowlerWith4wAnd5w = bowlingList.stream().map(player -> (player.get4w() + player.get5w()))
+				.max(Double::compare).get();
+		List<BowlingAnalysisCSV> bowlerWithBestStrikingRate4wAnd5w = bowlingList.stream()
+				.filter(player -> player.get4w() + player.get5w() == bowlerWith4wAnd5w).collect(Collectors.toList());
+		double bowlerWithBestStrikeRate = bowlerWithBestStrikingRate4wAnd5w.stream().map(BowlingAnalysisCSV::getSR)
+				.max(Double::compare).get();
+		return bowlerWithBestStrikingRate4wAnd5w.stream().filter(player -> player.getSR() == bowlerWithBestStrikeRate)
+				.collect(Collectors.toList());
 	}
 
 	public void sort(Comparator<BowlingAnalysisCSV> censusComparator) {
