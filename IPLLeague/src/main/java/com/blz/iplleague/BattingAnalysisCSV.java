@@ -54,6 +54,10 @@ public class BattingAnalysisCSV {
 		return sixes;
 	}
 
+	public double getSR() {
+		return sr;
+	}
+
 	@Override
 	public String toString() {
 		return "BattingAnalysisCSV [ pos= " + pos + ", Player= " + player + ", Mat= " + mat + ", Inns= " + inns

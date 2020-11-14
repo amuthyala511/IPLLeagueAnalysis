@@ -63,6 +63,22 @@ public class IPLLeague {
 		Collections.reverse(max6s);
 		return max6s;
 	}
+	
+	public List<BattingAnalysisCSV> getCricketerWithBestStrikingRate4sAnd6s(String csvFilePath) throws IOException, CensusAnalyserException {
+		loadCSVData(csvFilePath);
+		Integer cricketerWithMax4s6s = battingList.stream()
+							.map(player -> (player.getFours() + player.getSixes()))
+								.max(Double::compare).get();
+		List<BattingAnalysisCSV> cricketerWithBestStrikingRate4s6s = battingList.stream()
+							.filter(player -> player.getFours() + player.getSixes() == cricketerWithMax4s6s)
+								.collect(Collectors.toList());
+		double cricketerWithBestStrikeRate = cricketerWithBestStrikingRate4s6s.stream()
+							.map(BattingAnalysisCSV::getSR)
+								.max(Double::compare).get();
+		return cricketerWithBestStrikingRate4s6s.stream()
+				.filter(player -> player.getSR() == cricketerWithBestStrikeRate)
+				.collect(Collectors.toList());
+	}
 
 	public void sort(Comparator<BattingAnalysisCSV> censusComparator) {
 		for (int i = 0; i < battingList.size(); i++) {
