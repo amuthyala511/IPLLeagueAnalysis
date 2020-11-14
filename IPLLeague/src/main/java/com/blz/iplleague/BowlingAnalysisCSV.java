@@ -63,6 +63,10 @@ public class BowlingAnalysisCSV {
 		return fivewkts;
 	}
 	
+	public int getWkts() {
+		return wkts;
+	}
+	
 	@Override
 	public String toString() {
 		return "BowlingAnalysisCSV [ pos= "+ pos +", Player= "+ player +", Mat= "+ mat +", Inns= "+ inns

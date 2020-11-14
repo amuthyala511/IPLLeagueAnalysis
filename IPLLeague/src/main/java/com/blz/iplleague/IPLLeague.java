@@ -82,6 +82,18 @@ public class IPLLeague {
 				.collect(Collectors.toList());
 	}
 
+	public List<BowlingAnalysisCSV> getBowlersWhoTookMaxWicketsWithBestAverage(String csvFilePath)
+			throws IOException, CensusAnalyserException {
+		loadCSVData(csvFilePath);
+		int maxWickets = bowlingList.stream().map(BowlingAnalysisCSV::getWkts).max(Integer::compare).get();
+		List<BowlingAnalysisCSV> bowlerWithMaxWickets = bowlingList.stream()
+				.filter(player -> player.getWkts() == maxWickets).collect(Collectors.toList());
+		double bowlerWithBestAverage = bowlerWithMaxWickets.stream().map(BowlingAnalysisCSV::getAvg)
+				.max(Double::compare).get();
+		return bowlerWithMaxWickets.stream().filter(player -> player.getAvg() == bowlerWithBestAverage)
+				.collect(Collectors.toList());
+	}
+
 	public void sort(Comparator<BowlingAnalysisCSV> censusComparator) {
 		for (int i = 0; i < bowlingList.size(); i++) {
 			for (int j = 0; j < bowlingList.size() - i - 1; j++) {
