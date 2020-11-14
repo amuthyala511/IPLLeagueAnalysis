@@ -51,6 +51,10 @@ public class BowlingAnalysisCSV {
 		return sr;
 	}
 	
+	public int getEcon() {
+		return economy;
+	}
+	
 	@Override
 	public String toString() {
 		return "BowlingAnalysisCSV [ pos= "+ pos +", Player= "+ player +", Mat= "+ mat +", Inns= "+ inns
