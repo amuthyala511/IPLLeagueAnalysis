@@ -65,4 +65,9 @@ public class IPLLeagueTest {
 	public void givenBowlingData_ShouldSortBowlers_WithBestStrikingRate_With4wAnd5w_AndReturnResult() throws IOException, CensusAnalyserException {
 		Assert.assertEquals("Lasith Malinga", new IPLLeague().getBowlerWithBestStrikingRateWith4wAnd5w(BOWLING_FILE_PATH).get(0).player);
 	}
+	
+	@Test
+	public void givenBowlingData_ShouldSortBowlers_WithBestAverages_WithBestStrikingRates_AndReturnResult() throws IOException, CensusAnalyserException {
+		Assert.assertEquals("Krishnappa Gowtham", new IPLLeague().getBowlerWithBestStrikingRateWithBestAverage(BOWLING_FILE_PATH).get(0).player);
+	}
 }

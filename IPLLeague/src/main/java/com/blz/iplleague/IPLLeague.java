@@ -70,6 +70,18 @@ public class IPLLeague {
 				.collect(Collectors.toList());
 	}
 
+	public List<BowlingAnalysisCSV> getBowlerWithBestStrikingRateWithBestAverage(String csvFilePath)
+			throws IOException, CensusAnalyserException {
+		loadCSVData(csvFilePath);
+		double bestAverages = bowlingList.stream().map(BowlingAnalysisCSV::getAvg).max(Double::compare).get();
+		List<BowlingAnalysisCSV> bowlerWithBestAverage = bowlingList.stream()
+				.filter(player -> player.getAvg() == bestAverages).collect(Collectors.toList());
+		double bowlerWithBestStrikeRate = bowlerWithBestAverage.stream().map(BowlingAnalysisCSV::getSR)
+				.max(Double::compare).get();
+		return bowlerWithBestAverage.stream().filter(player -> player.getSR() == bowlerWithBestStrikeRate)
+				.collect(Collectors.toList());
+	}
+
 	public void sort(Comparator<BowlingAnalysisCSV> censusComparator) {
 		for (int i = 0; i < bowlingList.size(); i++) {
 			for (int j = 0; j < bowlingList.size() - i - 1; j++) {
