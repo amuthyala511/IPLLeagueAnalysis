@@ -34,6 +34,17 @@ public class IPLLeague {
 		String sortedCensusJson = new Gson().toJson(this.bowlingList);
 		return sortedCensusJson;
 	}
+	
+	public String getBowlersTopStrikingRate(String csvFilePath) throws CensusAnalyserException {
+		loadCSVData(csvFilePath);
+		if(bowlingList == null || bowlingList.size() == 0) {
+			throw new CensusAnalyserException("NO_CENSUS_DATA", CensusAnalyserException.ExceptionType.NO_SUCH_FILE);
+		}
+		Comparator<BowlingAnalysisCSV> censusComparator = Comparator.comparing(census -> census.sr);
+		this.sort(censusComparator);
+		String sortedCensusJson = new Gson().toJson(this.bowlingList);
+		return sortedCensusJson;
+	}
 
 	public void sort(Comparator<BowlingAnalysisCSV> censusComparator) {
 		for (int i = 0; i < bowlingList.size(); i++) {

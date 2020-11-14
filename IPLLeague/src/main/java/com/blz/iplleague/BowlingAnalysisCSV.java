@@ -47,6 +47,10 @@ public class BowlingAnalysisCSV {
 		return average;
 	}
 	
+	public double getSR() {
+		return sr;
+	}
+	
 	@Override
 	public String toString() {
 		return "BowlingAnalysisCSV [ pos= "+ pos +", Player= "+ player +", Mat= "+ mat +", Inns= "+ inns

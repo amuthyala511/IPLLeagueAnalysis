@@ -38,4 +38,15 @@ public class IPLLeagueTest {
 			e.printStackTrace();
 		}
 	}
+	
+	@Test
+	public void givenBowlingData_ShouldSortStrikingRate_AndReturnResult() {
+		try {
+			String sortedIPLBowlingData = iplLeagueAnalysis.getBowlersTopStrikingRate(BOWLING_FILE_PATH);
+			BowlingAnalysisCSV[] bowlingData = new Gson().fromJson(sortedIPLBowlingData, BowlingAnalysisCSV[].class);
+            Assert.assertEquals(120, bowlingData[bowlingData.length - 1].sr, DELTA);
+        } catch (CensusAnalyserException e) {
+        	e.printStackTrace();
+        }
+	}
 }
