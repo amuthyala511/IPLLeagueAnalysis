@@ -90,6 +90,18 @@ public class IPLLeague {
 				.collect(Collectors.toList());
 	}
 
+	public List<BattingAnalysisCSV> getCricketerHavingMaxRunsWithBestAverage(String csvFilePath)
+			throws IOException, CensusAnalyserException {
+		loadCSVData(csvFilePath);
+		int maxRuns = battingList.stream().map(BattingAnalysisCSV::getRuns).max(Integer::compare).get();
+		List<BattingAnalysisCSV> cricketerWithMaxRuns = battingList.stream()
+				.filter(player -> player.getRuns() == maxRuns).collect(Collectors.toList());
+		double cricketerWithBestAverage = cricketerWithMaxRuns.stream().map(BattingAnalysisCSV::getAvg)
+				.max(Double::compare).get();
+		return cricketerWithMaxRuns.stream().filter(player -> player.getAvg() == cricketerWithBestAverage)
+				.collect(Collectors.toList());
+	}
+
 	public void sort(Comparator<BattingAnalysisCSV> censusComparator) {
 		for (int i = 0; i < battingList.size(); i++) {
 			for (int j = 0; j < battingList.size() - i - 1; j++) {

@@ -77,4 +77,9 @@ public class IPLLeagueTest {
 		Assert.assertEquals("MS Dhoni",
 				new IPLLeague().getCricketerWithBestStrikingRatesWithBestAverage(BATTING_FILE_PATH).get(0).player);
 	}
+	
+	@Test
+	public void givenBattingData_ShouldSortCricketers_HavingMaxRuns_WithBestAverages_AndReturnResult() throws IOException, CensusAnalyserException {
+		Assert.assertEquals("", new IPLLeague().getCricketerHavingMaxRunsWithBestAverage(BATTING_FILE_PATH).get(0).player);
+	}
 }
