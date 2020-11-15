@@ -65,6 +65,10 @@ public class BattingAnalysisCSV {
 	public int getRuns() {
 		return runs;
 	}
+	
+	public int getCentury() {
+		return century;
+	}
 
 	@Override
 	public String toString() {

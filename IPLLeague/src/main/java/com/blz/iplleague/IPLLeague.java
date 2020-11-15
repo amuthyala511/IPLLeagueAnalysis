@@ -124,7 +124,7 @@ public class IPLLeague {
 		}
 		return batbowlAvgList;
 	}
-	
+
 	public List<String> allRounderPlayer() throws IOException, CensusAnalyserException {
 		List<String> allRounderList = new ArrayList<>();
 		List<BattingAnalysisCSV> playerWithMostRuns = battingList.stream()
@@ -132,13 +132,23 @@ public class IPLLeague {
 		Collections.reverse(playerWithMostRuns);
 		List<BowlingAnalysisCSV> playerWithMaxWkts = bowlingList.stream()
 				.sorted(Comparator.comparingDouble(player -> player.wkts)).collect(Collectors.toList());
-		for(BattingAnalysisCSV battingList : playerWithMostRuns) {
-			for(BowlingAnalysisCSV bowlingList : playerWithMaxWkts) {
-				if(battingList.player.equals(bowlingList.player)) {
+		for (BattingAnalysisCSV battingList : playerWithMostRuns) {
+			for (BowlingAnalysisCSV bowlingList : playerWithMaxWkts) {
+				if (battingList.player.equals(bowlingList.player)) {
 					allRounderList.add(battingList.player);
 				}
 			}
 		}
 		return allRounderList;
+	}
+
+	public List<BattingAnalysisCSV> getCricketerWithMax100sWithBestBattingAverage(String csvFilePath)
+			throws IOException, CensusAnalyserException {
+		loadCSVData(csvFilePath);
+		int century = battingList.stream().map(BattingAnalysisCSV::getCentury).max(Integer::compare).get();
+		List<BattingAnalysisCSV> maxHundreds = battingList.stream().filter(player -> player.getCentury() == century)
+				.collect(Collectors.toList());
+		double battingAverage = maxHundreds.stream().map(BattingAnalysisCSV::getAvg).max(Double::compare).get();
+		return maxHundreds.stream().filter(player -> player.getAvg() == battingAverage).collect(Collectors.toList());
 	}
 }

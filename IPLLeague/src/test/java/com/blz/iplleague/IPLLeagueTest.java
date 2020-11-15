@@ -11,6 +11,7 @@ import com.google.gson.Gson;
 
 public class IPLLeagueTest {
 
+	private static final String BATTING_FILE_PATH = "C:\\Users\\Muthyala Aishwarya\\Downloads\\IPL2019MostRuns";
 	private static final String BOWLING_FILE_PATH = "C:\\Users\\Muthyala Aishwarya\\Downloads\\IPL2019FactsheetMostWkts";
 	private static final double DELTA = 1e-15;
 
@@ -86,5 +87,10 @@ public class IPLLeagueTest {
 	@Test
 	public void givenIPLData_ShouldSortAllRounders_WithMaxRunsAndMaxWickets_AndReturnResult() throws IOException, CensusAnalyserException {
 		Assert.assertEquals("Andre Russell", iplLeagueAnalysis.allRounderPlayer().get(0));
+	}
+	
+	@Test
+	public void givenBattingData_ShouldSortPlayers_WithMax100sAndBestBattingAverage_AndReturnResult() throws IOException, CensusAnalyserException {
+		Assert.assertEquals("David Warner", iplLeagueAnalysis.getCricketerWithMax100sWithBestBattingAverage(BATTING_FILE_PATH).get(0).player);
 	}
 }
