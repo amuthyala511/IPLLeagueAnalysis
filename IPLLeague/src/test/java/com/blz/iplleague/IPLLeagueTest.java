@@ -80,6 +80,11 @@ public class IPLLeagueTest {
 	@Test
 	public void givenIPLData_ShouldSortPlayers_WithBestBattingAverage_AndBowlingAverage_AndReturnResult()
 			throws IOException, CensusAnalyserException {
-		Assert.assertEquals("Andre Russell", IPLLeague.CricketerWithBestBattingAndBowlingAverage().get(0));
+		Assert.assertEquals("Andre Russell", iplLeagueAnalysis.CricketerWithBestBattingAndBowlingAverage().get(0));
+	}
+	
+	@Test
+	public void givenIPLData_ShouldSortAllRounders_WithMaxRunsAndMaxWickets_AndReturnResult() throws IOException, CensusAnalyserException {
+		Assert.assertEquals("Andre Russell", iplLeagueAnalysis.allRounderPlayer().get(0));
 	}
 }

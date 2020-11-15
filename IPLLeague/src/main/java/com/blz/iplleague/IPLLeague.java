@@ -108,7 +108,7 @@ public class IPLLeague {
 		}
 	}
 
-	public static List<String> CricketerWithBestBattingAndBowlingAverage() throws IOException, CensusAnalyserException {
+	public List<String> CricketerWithBestBattingAndBowlingAverage() throws IOException, CensusAnalyserException {
 		List<String> batbowlAvgList = new ArrayList<>();
 		List<BattingAnalysisCSV> playerWithBestBattingAvg = battingList.stream()
 				.sorted(Comparator.comparingDouble(player -> player.average)).collect(Collectors.toList());
@@ -117,11 +117,28 @@ public class IPLLeague {
 				.sorted(Comparator.comparingDouble(player -> player.average)).collect(Collectors.toList());
 		for (BattingAnalysisCSV battingList : playerWithBestBattingAvg) {
 			for (BowlingAnalysisCSV bowlingList : playerWithBestBowlingAvg) {
-				if (BattingAnalysisCSV.player.equals(BattingAnalysisCSV.player)) {
-					batbowlAvgList.add(BattingAnalysisCSV.player);
+				if (battingList.player.equals(bowlingList.player)) {
+					batbowlAvgList.add(battingList.player);
 				}
 			}
 		}
 		return batbowlAvgList;
+	}
+	
+	public List<String> allRounderPlayer() throws IOException, CensusAnalyserException {
+		List<String> allRounderList = new ArrayList<>();
+		List<BattingAnalysisCSV> playerWithMostRuns = battingList.stream()
+				.sorted(Comparator.comparingDouble(player -> player.runs)).collect(Collectors.toList());
+		Collections.reverse(playerWithMostRuns);
+		List<BowlingAnalysisCSV> playerWithMaxWkts = bowlingList.stream()
+				.sorted(Comparator.comparingDouble(player -> player.wkts)).collect(Collectors.toList());
+		for(BattingAnalysisCSV battingList : playerWithMostRuns) {
+			for(BowlingAnalysisCSV bowlingList : playerWithMaxWkts) {
+				if(battingList.player.equals(bowlingList.player)) {
+					allRounderList.add(battingList.player);
+				}
+			}
+		}
+		return allRounderList;
 	}
 }

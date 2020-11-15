@@ -8,7 +8,7 @@ public class BattingAnalysisCSV {
 	public int pos;
 
 	@CsvBindByName(column = "PLAYER")
-	public static String player;
+	public String player;
 
 	@CsvBindByName(column = "Mat")
 	public int mat;
