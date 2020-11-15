@@ -151,4 +151,15 @@ public class IPLLeague {
 		double battingAverage = maxHundreds.stream().map(BattingAnalysisCSV::getAvg).max(Double::compare).get();
 		return maxHundreds.stream().filter(player -> player.getAvg() == battingAverage).collect(Collectors.toList());
 	}
+
+	public List<BattingAnalysisCSV> getPlayerWhoHitZero100sAnd50sButHadBestBattingAverage(String csvFilePath)
+			throws IOException, CensusAnalyserException {
+		loadCSVData(csvFilePath);
+		List<BattingAnalysisCSV> playerWithZero100sAnd50s = battingList.stream()
+				.filter(player -> (player.getCentury() + player.getHalfCentury()) == 0).collect(Collectors.toList());
+		double playerWithBestAverage = playerWithZero100sAnd50s.stream().map(BattingAnalysisCSV::getAvg)
+				.max(Double::compare).get();
+		return playerWithZero100sAnd50s.stream().filter(player -> player.getAvg() == playerWithBestAverage)
+				.collect(Collectors.toList());
+	}
 }

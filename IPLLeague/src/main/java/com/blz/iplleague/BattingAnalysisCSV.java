@@ -57,17 +57,21 @@ public class BattingAnalysisCSV {
 	public double getSR() {
 		return sr;
 	}
-	
+
 	public double getAvg() {
 		return average;
 	}
-	
+
 	public int getRuns() {
 		return runs;
 	}
-	
+
 	public int getCentury() {
 		return century;
+	}
+
+	public int getHalfCentury() {
+		return halfcentury;
 	}
 
 	@Override

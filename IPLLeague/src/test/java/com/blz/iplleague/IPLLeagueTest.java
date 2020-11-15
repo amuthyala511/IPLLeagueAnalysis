@@ -83,14 +83,24 @@ public class IPLLeagueTest {
 			throws IOException, CensusAnalyserException {
 		Assert.assertEquals("Andre Russell", iplLeagueAnalysis.CricketerWithBestBattingAndBowlingAverage().get(0));
 	}
-	
+
 	@Test
-	public void givenIPLData_ShouldSortAllRounders_WithMaxRunsAndMaxWickets_AndReturnResult() throws IOException, CensusAnalyserException {
+	public void givenIPLData_ShouldSortAllRounders_WithMaxRunsAndMaxWickets_AndReturnResult()
+			throws IOException, CensusAnalyserException {
 		Assert.assertEquals("Andre Russell", iplLeagueAnalysis.allRounderPlayer().get(0));
 	}
-	
+
 	@Test
-	public void givenBattingData_ShouldSortPlayers_WithMax100sAndBestBattingAverage_AndReturnResult() throws IOException, CensusAnalyserException {
-		Assert.assertEquals("David Warner", iplLeagueAnalysis.getCricketerWithMax100sWithBestBattingAverage(BATTING_FILE_PATH).get(0).player);
+	public void givenBattingData_ShouldSortPlayers_WithMax100sAndBestBattingAverage_AndReturnResult()
+			throws IOException, CensusAnalyserException {
+		Assert.assertEquals("David Warner",
+				iplLeagueAnalysis.getCricketerWithMax100sWithBestBattingAverage(BATTING_FILE_PATH).get(0).player);
+	}
+
+	@Test
+	public void givenBattingData_ShouldSortPlayers_WithZero100sAndZero50s_ButBestBattingAverage_AndReturnResult()
+			throws IOException, CensusAnalyserException {
+		Assert.assertEquals("Marcus Stoinis", iplLeagueAnalysis
+				.getPlayerWhoHitZero100sAnd50sButHadBestBattingAverage(BATTING_FILE_PATH).get(0).player);
 	}
 }
