@@ -38,41 +38,48 @@ public class IPLLeagueTest {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Test
 	public void givenBowlingData_ShouldSortStrikingRate_AndReturnResult() {
 		try {
 			String sortedIPLBowlingData = iplLeagueAnalysis.getBowlersTopStrikingRate(BOWLING_FILE_PATH);
 			BowlingAnalysisCSV[] bowlingData = new Gson().fromJson(sortedIPLBowlingData, BowlingAnalysisCSV[].class);
-            Assert.assertEquals(120, bowlingData[bowlingData.length - 1].sr, DELTA);
-        } catch (CensusAnalyserException e) {
-        	e.printStackTrace();
-        }
+			Assert.assertEquals(120, bowlingData[bowlingData.length - 1].sr, DELTA);
+		} catch (CensusAnalyserException e) {
+			e.printStackTrace();
+		}
 	}
-	
+
 	@Test
-	public void givenBowlingData_ShouldSortEconomyRate_AndReturnResult() {
-		try {
-			String sortedIPLBowlingData = iplLeagueAnalysis.getBowlersTopStrikingRate(BOWLING_FILE_PATH);
-			BowlingAnalysisCSV[] bowlingData = new Gson().fromJson(sortedIPLBowlingData, BowlingAnalysisCSV[].class);
-            Assert.assertEquals(13.11, bowlingData[bowlingData.length - 1].economy, DELTA);
-        } catch (CensusAnalyserException e) {
-        	e.printStackTrace();
-        }
+	public void givenBowlingData_ShouldSortEconomyRate_AndReturnResult() throws IOException, CensusAnalyserException {
+		Assert.assertEquals("Ben Cutting",
+				new IPLLeague().getBowlerWithBestEconomyRate(BOWLING_FILE_PATH).get(0).player);
 	}
-	
+
 	@Test
-	public void givenBowlingData_ShouldSortBowlers_WithBestStrikingRate_With4wAnd5w_AndReturnResult() throws IOException, CensusAnalyserException {
-		Assert.assertEquals("Lasith Malinga", new IPLLeague().getBowlerWithBestStrikingRateWith4wAnd5w(BOWLING_FILE_PATH).get(0).player);
+	public void givenBowlingData_ShouldSortBowlers_WithBestStrikingRate_With4wAnd5w_AndReturnResult()
+			throws IOException, CensusAnalyserException {
+		Assert.assertEquals("Lasith Malinga",
+				new IPLLeague().getBowlerWithBestStrikingRateWith4wAnd5w(BOWLING_FILE_PATH).get(0).player);
 	}
-	
+
 	@Test
-	public void givenBowlingData_ShouldSortBowlers_WithBestAverages_WithBestStrikingRates_AndReturnResult() throws IOException, CensusAnalyserException {
-		Assert.assertEquals("Krishnappa Gowtham", new IPLLeague().getBowlerWithBestStrikingRateWithBestAverage(BOWLING_FILE_PATH).get(0).player);
+	public void givenBowlingData_ShouldSortBowlers_WithBestAverages_WithBestStrikingRates_AndReturnResult()
+			throws IOException, CensusAnalyserException {
+		Assert.assertEquals("Krishnappa Gowtham",
+				new IPLLeague().getBowlerWithBestStrikingRateWithBestAverage(BOWLING_FILE_PATH).get(0).player);
 	}
-	
+
 	@Test
-	public void givenBowlingData_ShouldSortBowlers_WhoTookMaxWickets_WithBestAverage_AndReturnResult() throws IOException, CensusAnalyserException {
-		Assert.assertEquals("Imran Tahir", new IPLLeague().getBowlersWhoTookMaxWicketsWithBestAverage(BOWLING_FILE_PATH).get(0).player);
+	public void givenBowlingData_ShouldSortBowlers_WhoTookMaxWickets_WithBestAverage_AndReturnResult()
+			throws IOException, CensusAnalyserException {
+		Assert.assertEquals("Imran Tahir",
+				new IPLLeague().getBowlersWhoTookMaxWicketsWithBestAverage(BOWLING_FILE_PATH).get(0).player);
+	}
+
+	@Test
+	public void givenIPLData_ShouldSortPlayers_WithBestBattingAverage_AndBowlingAverage_AndReturnResult()
+			throws IOException, CensusAnalyserException {
+		Assert.assertEquals("Andre Russell", IPLLeague.CricketerWithBestBattingAndBowlingAverage().get(0));
 	}
 }

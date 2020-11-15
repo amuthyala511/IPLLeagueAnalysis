@@ -4,15 +4,19 @@ import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import com.google.gson.Gson;
 
 public class IPLLeague {
+	public static List<BattingAnalysisCSV> battingList;
 	public static List<BowlingAnalysisCSV> bowlingList;
+	public static Map<BattingAnalysisCSV, BowlingAnalysisCSV> iplPlayersCSV;
 
 	public int loadCSVData(String indiaCensusCSVFilePath) throws CensusAnalyserException {
 		try (Reader reader = Files.newBufferedReader(Paths.get(indiaCensusCSVFilePath))) {
@@ -46,15 +50,12 @@ public class IPLLeague {
 		return sortedCensusJson;
 	}
 
-	public String getBowlerWithBestEconomyRate(String csvFilePath) throws CensusAnalyserException {
+	public List<BowlingAnalysisCSV> getBowlerWithBestEconomyRate(String csvFilePath) throws CensusAnalyserException {
 		loadCSVData(csvFilePath);
-		if (bowlingList == null || bowlingList.size() == 0) {
-			throw new CensusAnalyserException("NO_CENSUS_DATA", CensusAnalyserException.ExceptionType.NO_SUCH_FILE);
-		}
-		Comparator<BowlingAnalysisCSV> censusComparator = Comparator.comparing(census -> census.economy);
-		this.sort(censusComparator);
-		String sortedCensusJson = new Gson().toJson(this.bowlingList);
-		return sortedCensusJson;
+		List<BowlingAnalysisCSV> bowlerWithBestEconomy = bowlingList.stream()
+				.sorted(Comparator.comparingDouble(BowlingAnalysisCSV::getEcon)).collect(Collectors.toList());
+		Collections.reverse(bowlerWithBestEconomy);
+		return bowlerWithBestEconomy;
 	}
 
 	public List<BowlingAnalysisCSV> getBowlerWithBestStrikingRateWith4wAnd5w(String csvFilePath)
@@ -105,5 +106,22 @@ public class IPLLeague {
 				}
 			}
 		}
+	}
+
+	public static List<String> CricketerWithBestBattingAndBowlingAverage() throws IOException, CensusAnalyserException {
+		List<String> batbowlAvgList = new ArrayList<>();
+		List<BattingAnalysisCSV> playerWithBestBattingAvg = battingList.stream()
+				.sorted(Comparator.comparingDouble(player -> player.average)).collect(Collectors.toList());
+		Collections.reverse(playerWithBestBattingAvg);
+		List<BowlingAnalysisCSV> playerWithBestBowlingAvg = bowlingList.stream()
+				.sorted(Comparator.comparingDouble(player -> player.average)).collect(Collectors.toList());
+		for (BattingAnalysisCSV battingList : playerWithBestBattingAvg) {
+			for (BowlingAnalysisCSV bowlingList : playerWithBestBowlingAvg) {
+				if (BattingAnalysisCSV.player.equals(BattingAnalysisCSV.player)) {
+					batbowlAvgList.add(BattingAnalysisCSV.player);
+				}
+			}
+		}
+		return batbowlAvgList;
 	}
 }
